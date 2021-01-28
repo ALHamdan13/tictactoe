@@ -121,8 +121,22 @@ struct Home : View {
             
             msg = "O wins!"
             gameOver.toggle()
+            
+            
+        } else {
+            
+            let status = moves.contains { (value) -> Bool in
+                
+                return value == ""
+                
+            }
+            
+            if !status {
+                
+                msg = "It's a tie!"
+                gameOver.toggle()
+            }
         }
-        
     }
     
     func checkMoves(player: String) -> Bool {
@@ -132,6 +146,25 @@ struct Home : View {
                 
                 return true
             }
+        }
+        
+        
+        for contestant in 0...2 {
+            if moves[contestant] == player && moves[contestant+3] == player && moves [contestant+6] == player {
+                
+                return true
+            }
+            
+        }
+        
+        if moves[0] == player && moves[4] == player && moves [8] == player {
+            
+            return true
+        }
+        
+        if moves[2] == player && moves[4] == player && moves [6] == player {
+            
+            return true
         }
         
         return false
