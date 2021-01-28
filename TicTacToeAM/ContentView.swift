@@ -27,6 +27,7 @@ struct Home : View {
     @State var isPlaying = true
     @State var gameOver = false
     @State var msg = ""
+    @State var title = ""
     
     var body: some View {
         VStack {
@@ -86,7 +87,7 @@ struct Home : View {
         
         .alert(isPresented: $gameOver, content: {
             
-            Alert(title: Text("Winner"), message: Text(msg), dismissButton: .default(Text("Play again?"), action: {
+            Alert(title: Text(title), message: Text(msg), dismissButton: .default(Text("Play again?"), action: {
                 
                 withAnimation(Animation.easeIn(duration: 0.5)) {
                     
@@ -113,13 +114,13 @@ struct Home : View {
         
         if checkMoves(player: "X") {
             
-            msg = "X wins!"
+            title = "Winner!"; msg = "X wins!"
             gameOver.toggle()
         }
         
         if checkMoves(player: "O") {
             
-            msg = "O wins!"
+            title = "Winner!"; msg = "O wins!"
             gameOver.toggle()
             
             
@@ -133,7 +134,7 @@ struct Home : View {
             
             if !status {
                 
-                msg = "It's a tie!"
+                title = "Winner?"; msg = "It's a tie!"
                 gameOver.toggle()
             }
         }
@@ -162,7 +163,7 @@ struct Home : View {
             return true
         }
         
-        if moves[2] == player && moves[4] == player && moves [6] == player {
+        if moves [2] == player && moves [4] == player && moves [6] == player {
             
             return true
         }
